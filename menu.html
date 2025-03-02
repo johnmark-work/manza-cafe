@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manza Café</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Include jsPDF library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+
+<body class="bg-[#F8F1E6] text-black min-h-screen">
+    
+    <!-- Header Section -->
+    <header class="bg-[#966A4C] text-black p-4 flex justify-between items-center font-serif">
+        <!-- Back to Home -->
+        <a href="index.html" class="transition-transform duration-300 hover:scale-105">
+            <h1 class="text-2xl font-bold text-white">Manza Café</h1>
+        </a>
+
+        <button class="bg-[#F4F1EC] text-black font-bold px-3 py-2 rounded-lg flex items-center gap-2 transition-transform duration-300 hover:scale-105" onclick="toggleCart()">
+            <img src="/assets/cart2.svg" alt="Cart" class="w-6 h-6">
+            <span>Cart</span>
+        </button>
+    </header>
+    
+    <!-- Main Content -->
+    <div class="flex ml-20">
+        <!-- Sidebar Categories -->
+        <aside id="stickyAside" class="w-20 p-2 space-y-4 mt-20 absolute top-0 left-0">
+            <img src="/assets/iced/mocha.webp" id="tab-iced-coffee" class="tab-item w-14 h-14 mx-auto rounded-lg cursor-pointer transition-transform duration-300 hover:scale-105" onclick="showCategory('iced-coffee', this)">
+            <img src="/assets/hot/macchiato.webp" id="tab-hot-coffee" class="tab-item w-14 h-14 mx-auto rounded-lg cursor-pointer transition-transform duration-300 hover:scale-105" onclick="showCategory('hot-coffee', this)">
+            <img src="/assets/donut/chocolate.webp" id="tab-donuts" class="tab-item w-14 h-14 mx-auto rounded-lg cursor-pointer transition-transform duration-300 hover:scale-105" onclick="showCategory('donuts', this)">
+            <img src="/assets/cake/cheese-cake.jpg" id="tab-cakes" class="tab-item w-14 h-14 mx-auto rounded-lg cursor-pointer transition-transform duration-300 hover:scale-105" onclick="showCategory('cakes', this)">
+        </aside>
+        
+        <!-- Food Menu Grid -->
+        <main class="flex-1 p-4">
+            <!-- Iced Coffee -->
+            <div id="iced-coffee" class="food-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                    
+                    <div class="relative group w-full h-40 overflow-hidden">
+                        <img src="/assets/iced/mocha.webp" class="w-full h-40 object-cover transition duration-300 group-hover:brightness-50"/>
+                
+                        <!-- Hover Description -->
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-60 text-white p-4 text-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                            Chilled espresso with chocolate and milk.
+                        </div>
+                    </div>
+
+                    <div class="p-2">
+                        <h2 class="font-bold text-sm">Iced Mocha</h2>
+                        <p class="text-gray-600 text-xs">₱ 120.00</p>
+                        <button class="bg-[#966A4C] text-white text-sm px-3 py-1 w-full mt-2 rounded-lg transition-transform duration-300 hover:scale-105" onclick="addToCart('Iced Mocha', 120.00)">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+        
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                    
+                    <div class="relative group w-full h-40 overflow-hidden">
+                        <img src="/assets/iced/caramel.webp" class="w-full h-40 object-cover transition duration-300 group-hover:brightness-50"/>
+                
+                        <!-- Hover Description -->
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-60 text-white p-4 text-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                            Sweet caramel, espresso, and milk over ice.
+                        </div>
+                    </div>
+
+                    <div class="p-2">
+                        <h2 class="font-bold text-sm">Iced Caramel</h2>
+                        <p class="text-gray-600 text-xs">₱ 120.00</p>
+                        <button class="bg-[#966A4C] text-white text-sm px-3 py-1 w-full mt-2 rounded-lg transition-transform duration-300 hover:scale-105" onclick="addToCart('Iced Caramel', 120.00)">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                    
+                    <div class="relative group w-full h-40 overflow-hidden">
+                        <img src="/assets/iced/latte.webp" class="w-full h-40 object-cover transition duration-300 group-hover:brightness-50"/>
+                
+                        <!-- Hover Description -->
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-60 text-white p-4 text-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                            Smooth espresso with creamy chilled milk.
+                        </div>
+                    </div>
+
+                    <div class="p-2">
+                        <h2 class="font-bold text-sm">Iced Latte</h2>
+                        <p class="text-gray-600 text-xs">₱ 120.00</p>
+                        <button class="bg-[#966A4C] text-white text-sm px-3 py-1 w-full mt-2 rounded-lg transition-transform duration-300 hover:scale-105" onclick="addToCart('Iced Latte', 120.00)">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                    
+                    <div class="relative group w-full h-40 overflow-hidden">
+                        <img src="/assets/iced/cold-brew.webp" class="w-full h-40 object-cover transition duration-300 group-hover:brightness-50"/>
+                
+                        <!-- Hover Description -->
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-60 text-white p-4 text-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                            Slow-steeped coffee, bold and refreshing.
+                        </div>
+                    </div>
+
+                    <div class="p-2">
+                        <h2 class="font-bold text-sm">Cold brew</h2>
+                        <p class="text-gray-600 text-xs">₱ 120.00</p>
+                        <button class="bg-[#966A4C] text-white text-sm px-3 py-1 w-full mt-2 rounded-lg transition-transform duration-300 hover:scale-105" onclick="addToCart('Cold brew', 120.00)">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                    
+                    <div class="relative group w-full h-40 overflow-hidden">
+                        <img src="/assets/iced/machiatto.webp" class="w-full h-40 object-cover transition duration-300 group-hover:brightness-50"/>
+                
+                        <!-- Hover Description -->
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-60 text-white p-4 text-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                            Layered espresso with milk and ice.
+                        </div>
+                    </div>
+
+                    <div class="p-2">
+                        <h2 class="font-bold text-sm">Iced Macchiato</h2>
+                        <p class="text-gray-600 text-xs">₱ 120.00</p>
+                        <button class="bg-[#966A4C] text-white text-sm px-3 py-1 w-full mt-2 rounded-lg transition-transform duration-300 hover:scale-105" onclick="addToCart('Iced Macchiato', 120.00)">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                    
+                    <div class="relative group w-full h-40 overflow-hidden">
+                        <img src="/assets/iced/espresso.webp" class="w-full h-40 object-cover transition duration-300 group-hover:brightness-50"/>
+                
+                        <!-- Hover Description -->
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-60 text-white p-4 text-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                            Strong, chilled espresso shot.
+                        </div>
+                    </div>
+
+                    <div class="p-2">
+                        <h2 class="font-bold text-sm">Iced Espresso</h2>
+                        <p class="text-gray-600 text-xs">₱ 120.00</p>
+                        <button class="bg-[#966A4C] text-white text-sm px-3 py-1 w-full mt-2 rounded-lg transition-transform duration-300 hover:scale-105" onclick="addToCart('Iced Espresso', 120.00)">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                    
+                    <div class="relative group w-full h-40 overflow-hidden">
+                        <img src="/assets/iced/choco.webp" class="w-full h-40 object-cover transition duration-300 group-hover:brightness-50"/>
+                
+                        <!-- Hover Description -->
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-60 text-white p-4 text-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                            Rich chocolate blended with cold milk.
+                        </div>
+                    </div>
+
+                    <div class="p-2">
+                        <h2 class="font-bold text-sm">Iced Choco</h2>
+                        <p class="text-gray-600 text-xs">₱ 120.00</p>
+                        <button class="bg-[#966A4C] text-white text-sm px-3 py-1 w-full mt-2 rounded-lg transition-transform duration-300 hover:scale-105" onclick="addToCart('Iced Choco', 120.00)">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                    
+                    <div class="relative group w-full h-40 overflow-hidden">
+                        <img src="/assets/iced/americano.webp" class="w-full h-40 object-cover transition duration-300 group-hover:brightness-50"/>
+                
+                        <!-- Hover Description -->
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-60 text-white p-4 text-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                            Espresso diluted with ice-cold water.
+                        </div>
+                    </div>
+
+                    <div class="p-2">
+                        <h2 class="font-bold text-sm">Iced Americano</h2>
+                        <p class="text-gray-600 text-xs">₱ 120.00</p>
+                        <button class="bg-[#966A4C] text-white text-sm px-3 py-1 w-full mt-2 rounded-lg transition-transform duration-300 hover:scale-105" onclick="addToCart('Iced Americano', 120.00)">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        
+            <!-- Hot Coffee -->
+            <div id="hot-coffee" class="food-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 hidden">
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                    
+                    <div class="relative group w-full h-40 overflow-hidden">
+                        <img src="/assets/hot/macchiato.webp" class="w-full h-40 object-cover transition duration-300 group-hover:brightness-50"/>
+                
+                        <!-- Hover Description -->
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-60 text-white p-4 text-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                            Bold espresso topped with a dollop of frothy milk.
+                        </div>
+                    </div>
+
+                    <div class="p-2">
+                        <h2 class="font-bold text-sm">Hot Macchiato</h2>
+                        <p class="text-gray-600 text-xs">₱ 100.00</p>
+                        <button class="bg-[#966A4C] text-white text-sm px-3 py-1 w-full mt-2 rounded-lg transition-transform duration-300 hover:scale-105" onclick="addToCart('Hot Macchiato', 100.00)">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                    
+                    <div class="relative group w-full h-40 overflow-hidden">
+                        <img src="/assets/hot/cappuccino.webp" class="w-full h-40 object-cover transition duration-300 group-hover:brightness-50"/>
+                
+                        <!-- Hover Description -->
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-60 text-white p-4 text-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                            Rich espresso with thick, velvety milk foam.
+                        </div>
+                    </div>
+
+                    <div class="p-2">
+                        <h2 class="font-bold text-sm">Hot Cappuccino</h2>
+                        <p class="text-gray-600 text-xs">₱ 100.00</p>
+                        <button class="bg-[#966A4C] text-white text-sm px-3 py-1 w-full mt-2 rounded-lg transition-transform duration-300 hover:scale-105" onclick="addToCart('Hot Cappuccino', 100.00)">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                    
+                    <div class="relative group w-full h-40 overflow-hidden">
+                        <img src="/assets/hot/espresso.webp" class="w-full h-40 object-cover transition duration-300 group-hover:brightness-50"/>
+                
+                        <!-- Hover Description -->
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-60 text-white p-4 text-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                            Strong, concentrated coffee with a smooth crema.
+                        </div>
+                    </div>
+
+                    <div class="p-2">
+                        <h2 class="font-bold text-sm">Hot Espresso</h2>
+                        <p class="text-gray-600 text-xs">₱ 100.00</p>
+                        <button class="bg-[#966A4C] text-white text-sm px-3 py-1 w-full mt-2 rounded-lg transition-transform duration-300 hover:scale-105" onclick="addToCart('Hot Espresso', 100.00)">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                    
+                    <div class="relative group w-full h-40 overflow-hidden">
+                        <img src="/assets/hot/americano.webp" class="w-full h-40 object-cover transition duration-300 group-hover:brightness-50"/>
+                
+                        <!-- Hover Description -->
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-60 text-white p-4 text-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                            Espresso diluted with hot water for a balanced taste.
+                        </div>
+                    </div>
+
+                    <div class="p-2">
+                        <h2 class="font-bold text-sm">Hot Americano</h2>
+                        <p class="text-gray-600 text-xs">₱ 100.00</p>
+                        <button class="bg-[#966A4C] text-white text-sm px-3 py-1 w-full mt-2 rounded-lg transition-transform duration-300 hover:scale-105" onclick="addToCart('Hot Americano', 100.00)">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                    
+                    <div class="relative group w-full h-40 overflow-hidden">
+                        <img src="/assets/hot/mocha.webp" class="w-full h-40 object-cover transition duration-300 group-hover:brightness-50"/>
+                
+                        <!-- Hover Description -->
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-60 text-white p-4 text-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                            Chocolate-infused espresso with steamed milk.
+                        </div>
+                    </div>
+
+                    <div class="p-2">
+                        <h2 class="font-bold text-sm">Hot Mocha</h2>
+                        <p class="text-gray-600 text-xs">₱ 100.00</p>
+                        <button class="bg-[#966A4C] text-white text-sm px-3 py-1 w-full mt-2 rounded-lg transition-transform duration-300 hover:scale-105" onclick="addToCart('Hot Mocha', 100.00)">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                    
+                    <div class="relative group w-full h-40 overflow-hidden">
+                        <img src="/assets/hot/caramel.webp" class="w-full h-40 object-cover transition duration-300 group-hover:brightness-50"/>
+                
+                        <!-- Hover Description -->
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-60 text-white p-4 text-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                            Espresso with creamy milk and sweet caramel drizzle.
+                        </div>
+                    </div>
+
+                    <div class="p-2">
+                        <h2 class="font-bold text-sm">Hot Caramel</h2>
+                        <p class="text-gray-600 text-xs">₱ 100.00</p>
+                        <button class="bg-[#966A4C] text-white text-sm px-3 py-1 w-full mt-2 rounded-lg transition-transform duration-300 hover:scale-105" onclick="addToCart('Hot Caramel', 100.00)">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                    
+                    <div class="relative group w-full h-40 overflow-hidden">
+                        <img src="/assets/hot/latte.webp" class="w-full h-40 object-cover transition duration-300 group-hover:brightness-50"/>
+                
+                        <!-- Hover Description -->
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-60 text-white p-4 text-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                            Smooth espresso blended with steamed milk.
+                        </div>
+                    </div>
+
+                    <div class="p-2">
+                        <h2 class="font-bold text-sm">Hot Latte</h2>
+                        <p class="text-gray-600 text-xs">₱ 100.00</p>
+                        <button class="bg-[#966A4C] text-white text-sm px-3 py-1 w-full mt-2 rounded-lg transition-transform duration-300 hover:scale-105" onclick="addToCart('Hot Latte', 100.00)">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                    
+                    <div class="relative group w-full h-40 overflow-hidden">
+                        <img src="/assets/hot/choco.webp" class="w-full h-40 object-cover transition duration-300 group-hover:brightness-50"/>
+                
+                        <!-- Hover Description -->
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-60 text-white p-4 text-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                            Warm, rich cocoa with a frothy milk topping.
+                        </div>
+                    </div>
+
+                    <div class="p-2">
+                        <h2 class="font-bold text-sm">Hot Choco</h2>
+                        <p class="text-gray-600 text-xs">₱ 100.00</p>
+                        <button class="bg-[#966A4C] text-white text-sm px-3 py-1 w-full mt-2 rounded-lg transition-transform duration-300 hover:scale-105" onclick="addToCart('Hot Choco', 100.00)">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Donuts -->
+            <div id="donuts" class="food-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 hidden">
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                    
+                    <div class="relative group w-full h-40 overflow-hidden">
+                        <img src="/assets/donut/classic.webp" class="w-full h-40 object-cover transition duration-300 group-hover:brightness-50"/>
+                
+                        <!-- Hover Description -->
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-60 text-white p-4 text-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                            Soft, fluffy, and lightly sweet.
+                        </div>
+                    </div>
+
+                    <div class="p-2">
+                        <h2 class="font-bold text-sm">Classic Donut</h2>
+                        <p class="text-gray-600 text-xs">₱ 40.00</p>
+                        <button class="bg-[#966A4C] text-white text-sm px-3 py-1 w-full mt-2 rounded-lg transition-transform duration-300 hover:scale-105" onclick="addToCart('Classic Donut', 40.00)">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                    
+                    <div class="relative group w-full h-40 overflow-hidden">
+                        <img src="/assets/donut/chocolate.webp" class="w-full h-40 object-cover transition duration-300 group-hover:brightness-50"/>
+                
+                        <!-- Hover Description -->
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-60 text-white p-4 text-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                            Rich cocoa glaze over a soft donut.
+                        </div>
+                    </div>
+
+                    <div class="p-2">
+                        <h2 class="font-bold text-sm">Chocolate Donut</h2>
+                        <p class="text-gray-600 text-xs">₱ 40.00</p>
+                        <button class="bg-[#966A4C] text-white text-sm px-3 py-1 w-full mt-2 rounded-lg transition-transform duration-300 hover:scale-105" onclick="addToCart('Chocolate Donut', 40.00)">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                    
+                    <div class="relative group w-full h-40 overflow-hidden">
+                        <img src="/assets/donut/strawberry.webp" class="w-full h-40 object-cover transition duration-300 group-hover:brightness-50"/>
+                
+                        <!-- Hover Description -->
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-60 text-white p-4 text-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                            Sweet strawberry icing with a fruity touch.
+                        </div>
+                    </div>
+
+                    <div class="p-2">
+                        <h2 class="font-bold text-sm">Strawberry Donut</h2>
+                        <p class="text-gray-600 text-xs">₱ 40.00</p>
+                        <button class="bg-[#966A4C] text-white text-sm px-3 py-1 w-full mt-2 rounded-lg transition-transform duration-300 hover:scale-105" onclick="addToCart('Strawberry Donut', 40.00)">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                    
+                    <div class="relative group w-full h-40 overflow-hidden">
+                        <img src="/assets/donut/vanilla.webp" class="w-full h-40 object-cover transition duration-300 group-hover:brightness-50"/>
+                
+                        <!-- Hover Description -->
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-60 text-white p-4 text-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                            Smooth vanilla glaze with a creamy taste.
+                        </div>
+                    </div>
+
+                    <div class="p-2">
+                        <h2 class="font-bold text-sm">Vanilla Donut</h2>
+                        <p class="text-gray-600 text-xs">₱ 40.00</p>
+                        <button class="bg-[#966A4C] text-white text-sm px-3 py-1 w-full mt-2 rounded-lg transition-transform duration-300 hover:scale-105" onclick="addToCart('Vanilla Donut', 40.00)">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                    
+                    <div class="relative group w-full h-40 overflow-hidden">
+                        <img src="/assets/donut/bavarian.webp" class="w-full h-40 object-cover transition duration-300 group-hover:brightness-50"/>
+                
+                        <!-- Hover Description -->
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-60 text-white p-4 text-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                            Filled with silky vanilla custard.
+                        </div>
+                    </div>
+
+                    <div class="p-2">
+                        <h2 class="font-bold text-sm">Bavarian Donut</h2>
+                        <p class="text-gray-600 text-xs">₱ 40.00</p>
+                        <button class="bg-[#966A4C] text-white text-sm px-3 py-1 w-full mt-2 rounded-lg transition-transform duration-300 hover:scale-105" onclick="addToCart('Bavarian Donut', 40.00)">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                    
+                    <div class="relative group w-full h-40 overflow-hidden">
+                        <img src="/assets/donut/glazed.webp" class="w-full h-40 object-cover transition duration-300 group-hover:brightness-50"/>
+                
+                        <!-- Hover Description -->
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-60 text-white p-4 text-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                            Shiny, sweet sugar-coated perfection.
+                        </div>
+                    </div>
+
+                    <div class="p-2">
+                        <h2 class="font-bold text-sm">Glazed Donut</h2>
+                        <p class="text-gray-600 text-xs">₱ 40.00</p>
+                        <button class="bg-[#966A4C] text-white text-sm px-3 py-1 w-full mt-2 rounded-lg transition-transform duration-300 hover:scale-105" onclick="addToCart('Glazed Donut', 40.00)">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                    
+                    <div class="relative group w-full h-40 overflow-hidden">
+                        <img src="/assets/donut/tiramisu.webp" class="w-full h-40 object-cover transition duration-300 group-hover:brightness-50"/>
+                
+                        <!-- Hover Description -->
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-60 text-white p-4 text-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                            Coffee-flavored with a creamy filling.
+                        </div>
+                    </div>
+
+                    <div class="p-2">
+                        <h2 class="font-bold text-sm">Tiramisu Donut</h2>
+                        <p class="text-gray-600 text-xs">₱ 40.00</p>
+                        <button class="bg-[#966A4C] text-white text-sm px-3 py-1 w-full mt-2 rounded-lg transition-transform duration-300 hover:scale-105" onclick="addToCart('Tiramisu Donut', 40.00)">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                    
+                    <div class="relative group w-full h-40 overflow-hidden">
+                        <img src="/assets/donut/sprinkles.webp" class="w-full h-40 object-cover transition duration-300 group-hover:brightness-50"/>
+                
+                        <!-- Hover Description -->
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-60 text-white p-4 text-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                            Colorful, fun, and crunchy toppings.
+                        </div>
+                    </div>
+
+                    <div class="p-2">
+                        <h2 class="font-bold text-sm">Sprinkles Donut</h2>
+                        <p class="text-gray-600 text-xs">₱ 40.00</p>
+                        <button class="bg-[#966A4C] text-white text-sm px-3 py-1 w-full mt-2 rounded-lg transition-transform duration-300 hover:scale-105" onclick="addToCart('Sprinkles Donut', 40.00)">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        
+            <!-- Cakes -->
+            <div id="cakes" class="food-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 hidden">
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                    
+                    <div class="relative group w-full h-40 overflow-hidden">
+                        <img src="/assets/cake/chocolate.jpeg" class="w-full h-40 object-cover transition duration-300 group-hover:brightness-50"/>
+                
+                        <!-- Hover Description -->
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-60 text-white p-4 text-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                            Rich, moist, and indulgently chocolaty.
+                        </div>
+                    </div>
+
+                    <div class="p-2">
+                        <h2 class="font-bold text-sm">Chocolate Cake Slice</h2>
+                        <p class="text-gray-600 text-xs">₱ 100.00</p>
+                        <button class="bg-[#966A4C] text-white text-sm px-3 py-1 w-full mt-2 rounded-lg transition-transform duration-300 hover:scale-105" onclick="addToCart('Chocolate Cake Slice', 100.00)">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                    
+                    <div class="relative group w-full h-40 overflow-hidden">
+                        <img src="/assets/cake/strawberry.jpeg" class="w-full h-40 object-cover transition duration-300 group-hover:brightness-50"/>
+                
+                        <!-- Hover Description -->
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-60 text-white p-4 text-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                            Light, fruity, with a sweet berry flavor.
+                        </div>
+                    </div>
+
+                    <div class="p-2">
+                        <h2 class="font-bold text-sm">Strawberry Cake Slice</h2>
+                        <p class="text-gray-600 text-xs">₱ 100.00</p>
+                        <button class="bg-[#966A4C] text-white text-sm px-3 py-1 w-full mt-2 rounded-lg transition-transform duration-300 hover:scale-105" onclick="addToCart('Strawberry Cake Slice', 100.00)">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                    
+                    <div class="relative group w-full h-40 overflow-hidden">
+                        <img src="/assets/cake/black-forest.jpeg" class="w-full h-40 object-cover transition duration-300 group-hover:brightness-50"/>
+                
+                        <!-- Hover Description -->
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-60 text-white p-4 text-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                            Chocolate, cherries, and whipped cream delight.
+                        </div>
+                    </div>
+
+                    <div class="p-2">
+                        <h2 class="font-bold text-sm">Black Forest Cake Slice</h2>
+                        <p class="text-gray-600 text-xs">₱ 100.00</p>
+                        <button class="bg-[#966A4C] text-white text-sm px-3 py-1 w-full mt-2 rounded-lg transition-transform duration-300 hover:scale-105" onclick="addToCart('Black Forest Cake Slice', 100.00)">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                    
+                    <div class="relative group w-full h-40 overflow-hidden">
+                        <img src="/assets/cake/red-velvet.jpg" class="w-full h-40 object-cover transition duration-300 group-hover:brightness-50"/>
+                
+                        <!-- Hover Description -->
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-60 text-white p-4 text-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                            Soft, velvety, with a hint of cocoa.
+                        </div>
+                    </div>
+
+                    <div class="p-2">
+                        <h2 class="font-bold text-sm">Red Velvet Cake Slice</h2>
+                        <p class="text-gray-600 text-xs">₱ 100.00</p>
+                        <button class="bg-[#966A4C] text-white text-sm px-3 py-1 w-full mt-2 rounded-lg transition-transform duration-300 hover:scale-105" onclick="addToCart('Red Velvet Cake Slice', 100.00)">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+
+                    <div class="relative group w-full h-40 overflow-hidden">
+                        <img src="/assets/cake/tiramisu.jpg" class="w-full h-40 object-cover transition duration-300 group-hover:brightness-50"/>
+                
+                        <!-- Hover Description -->
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-60 text-white p-4 text-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                            Coffee-soaked layers with creamy mascarpone.
+                        </div>
+                    </div>
+
+                    <div class="p-2">
+                        <h2 class="font-bold text-sm">Tiramisu Cake Slice</h2>
+                        <p class="text-gray-600 text-xs">₱ 100.00</p>
+                        <button class="bg-[#966A4C] text-white text-sm px-3 py-1 w-full mt-2 rounded-lg transition-transform duration-300 hover:scale-105" onclick="addToCart('Tiramisu Cake Slice', 100.00)">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                    
+                    <div class="relative group w-full h-40 overflow-hidden">
+                        <img src="/assets/cake/cheese-cake.jpg" class="w-full h-40 object-cover transition duration-300 group-hover:brightness-50"/>
+                
+                        <!-- Hover Description -->
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-60 text-white p-4 text-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                            Smooth, creamy, and irresistibly rich.
+                        </div>
+                    </div>
+
+                    <div class="p-2">
+                        <h2 class="font-bold text-sm">Cheese cake Slice</h2>
+                        <p class="text-gray-600 text-xs">₱ 100.00</p>
+                        <button class="bg-[#966A4C] text-white text-sm px-3 py-1 w-full mt-2 rounded-lg transition-transform duration-300 hover:scale-105" onclick="addToCart('Cheese Cake Slice', 100.00)">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                    
+                    <div class="relative group w-full h-40 overflow-hidden">
+                        <img src="/assets/cake/ube.jpg" class="w-full h-40 object-cover transition duration-300 group-hover:brightness-50"/>
+                
+                        <!-- Hover Description -->
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-60 text-white p-4 text-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                            Sweet and vibrantly purple.
+                        </div>
+                    </div>
+
+                    <div class="p-2">
+                        <h2 class="font-bold text-sm">Ube Cake Slice</h2>
+                        <p class="text-gray-600 text-xs">₱ 100.00</p>
+                        <button class="bg-[#966A4C] text-white text-sm px-3 py-1 w-full mt-2 rounded-lg transition-transform duration-300 hover:scale-105" onclick="addToCart('Ube Cake Slice', 100.00)">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+                    
+                    <div class="relative group w-full h-40 overflow-hidden">
+                        <img src="/assets/cake/matcha.jpg" class="w-full h-40 object-cover transition duration-300 group-hover:brightness-50"/>
+                
+                        <!-- Hover Description -->
+                        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-60 text-white p-4 text-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                            Matcha cake frosted with whipped cream.
+                        </div>
+                    </div>
+
+                    <div class="p-2">
+                        <h2 class="font-bold text-sm">Matcha Cake Slice</h2>
+                        <p class="text-gray-600 text-xs">₱ 100.00</p>
+                        <button class="bg-[#966A4C] text-white text-sm px-3 py-1 w-full mt-2 rounded-lg transition-transform duration-300 hover:scale-105" onclick="addToCart('Matcha Cake Slice', 100.00)">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </main> 
+    </div>
+
+    <!-- Cart Modal -->
+    <div id="cart-container" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-[#F8F1E6] w-full h-full p-6 rounded-none shadow-xl flex flex-col">
+            <h2 class="text-2xl font-bold text-center mb-4">Order List</h2>
+
+            <!-- Scrollable Cart Items -->
+            <div id="cart-items" class="flex-grow overflow-y-auto max-h-[70vh] p-2">
+                <!-- Items will be dynamically added here -->
+            </div>
+
+            <!-- Cart Total -->
+            <div class="mt-4 text-lg font-bold text-right pr-4">
+                <span id="cart-total"></span>
+            </div>
+
+            <!-- Buttons -->
+            <div class="flex justify-between mt-4 gap-6">
+                <button class="bg-[#966A4C] text-white px-6 py-3 rounded-lg w-1/2 transition-transform duration-300 hover:scale-105" onclick="toggleCart()">Back</button>
+                <button id="checkout-btn" class="bg-green-500 font-semibold text-white px-6 py-3 rounded-lg w-1/2 transition-transform duration-300 hover:scale-105" onclick="checkout()">Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="cart.js"></script>
+</body>
+</html>
